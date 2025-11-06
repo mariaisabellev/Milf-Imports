@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background-color: #fff;
+
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+}
+
+.sair > img {
+  width: 60px;
+  height: 60px;
+}
+.sair {
+  text-align: right;
+}
+
+.popup {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 30px 25px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: aparecer 0.5s ease forwards;
+  margin: auto;
+  margin-top: 10%;
+}
+
+@keyframes aparecer {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popup h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.popup input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  outline: none;
+  background: #f9f9f9;
+}
+
+.popup button {
+  width: 100%;
+  padding: 10px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.popup button:hover {
+  background: #333;
+}
+
+.switch {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #444;
+}
+
+.switch span {
+  color: #000;
+  cursor: pointer;
+  font-weight: 600;
+}

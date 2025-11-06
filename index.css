@@ -1,0 +1,433 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Header */
+.barra-topo {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  padding: 6px 0;
+}
+
+.barra-topo span {
+  margin: 0 150px;
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #000;
+  padding: 15px 40px;
+}
+
+.logo img {
+  height: 100px;
+  width: 150px;
+}
+
+.pesquisa {
+  display: flex;
+  align-items: center;
+}
+
+.pesquisa input {
+  padding: 8px;
+  width: 250px;
+  border: 1px solid white;
+  background: #000;
+  color: white;
+  border-radius: 4px 0 0 4px;
+}
+
+.pesquisa input::placeholder {
+  color: #aaa;
+}
+
+.pesquisa button {
+  padding: 8px 12px;
+  border: 1px solid white;
+  background: #000;
+  color: white;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.icones i {
+  margin-left: 20px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.icones i:hover {
+  color: yellow;
+}
+
+.menu {
+  background: #000;
+  text-align: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #fff;
+}
+
+.menu a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 70px;
+  font-weight: bold;
+  position: relative;
+  padding-bottom: 5px;
+  transition: color 0.3s;
+}
+
+.menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: yellow;
+  transition: 0.3s;
+}
+
+.menu a:hover {
+  color: yellow;
+}
+
+.menu a:hover::after {
+  width: 100%;
+}
+
+.menu .destaque {
+  color: #fff;
+}
+/* Fechar Header */
+
+/* Banner */
+.banner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.banner-content {
+  text-align: center;
+}
+
+.banner h1 {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+}
+
+.vermais {
+  background: #000000;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.vermais:hover {
+  background: #ddd;
+}
+
+h2 {
+  margin: 40px 0 20px;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  color: #111;
+}
+
+/* Categorias e Linhas */
+.categorias,
+.linhas {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.categoria,
+.linha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.categoria img,
+.linha img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+/* Produtos */
+.produtos {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.produto {
+  background: #f5f5f5;
+  width: 200px;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.produto img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.produto h3 {
+  font-size: 1rem;
+  margin: 10px 0 5px;
+}
+
+.produto p {
+  margin: 5px 0 10px;
+  color: #444;
+  font-weight: bold;
+}
+
+.produto .btn {
+  background: black;
+  color: white;
+  border-radius: 5px;
+}
+
+.produto .btn:hover {
+  background: #444;
+}
+
+/* EFEITO NAS CATEGORIAS E LINHAS */
+.categoria,
+.linha {
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.categoria:hover,
+.linha:hover {
+  transform: scale(1.15);
+}
+
+.categoria img,
+.linha img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.categoria:hover img,
+.linha:hover img {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.categoria p,
+.linha p {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.categoria:hover p,
+.linha:hover p {
+  transform: scale(1.15);
+  color: rgb(255, 191, 0);
+  font-weight: bold;
+}
+
+/* ===== EFEITO NOS PRODUTOS MAIS VENDIDOS ===== */
+.produto {
+  background: #f5f5f5;
+  width: 200px;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.produto:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.produto img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.produto:hover img {
+  transform: scale(1.05);
+}
+
+/* Botão Ver Mais */
+.ver-mais {
+  margin-top: 50px;
+}
+
+/* Footer */
+.footer {
+  margin-top: 50px;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 40px 0 20px;
+  width: 100%;
+}
+
+.conteudo-footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+
+.secao-rodape h3 {
+  color: #ffea02;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.secao-rodape ul {
+  list-style: none;
+}
+
+.secao-rodape ul li {
+  margin-bottom: 12px;
+}
+
+.secao-rodape ul li a {
+  color: #cccccc;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.secao-rodape ul li a:hover {
+  color: #ffea02;
+}
+
+.secao-marca h2 {
+  color: #ffea02;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.secao-marca .imports {
+  color: #ffffff;
+}
+
+.secao-marca p {
+  color: #cccccc;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 280px;
+}
+
+.icones-sociais {
+  display: flex;
+  gap: 15px;
+}
+
+.icones-sociais a {
+  color: #cccccc;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.icones-sociais a:hover {
+  color: #ffea02;
+}
+
+.info-contato {
+  list-style: none;
+}
+
+.info-contato li {
+  color: #cccccc;
+  font-size: 14px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-contato li i {
+  color: #ffea02;
+  width: 16px;
+}
+
+.rodape-inferior {
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.rodape-inferior p {
+  color: #888;
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .conteudo-footer {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .conteudo-footer {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .secao-marca {
+    text-align: center;
+  }
+
+  .icones-sociais {
+    justify-content: center;
+  }
+}

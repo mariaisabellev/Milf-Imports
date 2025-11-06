@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milf Imports - Favoritos</title>
+  <link rel="stylesheet" href="favoritos.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+  <!-- Header -->
+  <!-- Barra de cima -->
+  <div class="barra-topo">
+    <span>Parcelamento em 3x sem juros</span>
+    <span>Primeira compra</span>
+    <span>Frete grátis</span>
+  </div>
+
+  <!-- Cabeçalho -->
+  <header class="cabecalho">
+    <div class="logo">
+      <a href="index.html">
+        <img src="imagens/logo1.png" alt="Logo da loja"></a>
+    </div>
+
+    <div class="pesquisa">
+      <input type="text" placeholder="Buscar">
+      <button><i class="fa fa-search"></i></button>
+    </div>
+
+    <div class="icones">
+      <a href="carrinho.html">
+        <i class="fa fa-bag-shopping"></i></a>
+      <i class="fa fa-heart"></i>
+      <a href="login.html">
+        <i class="fa fa-user"></i></a>
+    </div>
+  </header>
+
+  <!-- Menu -->
+  <nav class="menu">
+    <a href="acessorios.html">ACESSÓRIOS</a>
+    <a href="roupas.html">ROUPAS</a>
+    <a href="tenis.html">TÊNIS</a>
+    <a href="favoritos.html" class="destaque">FAVORITOS</a>
+    <a href="sobrenos.html">SOBRE NÓS</a>
+  </nav>
+  <!-- fechar Header -->
+
+
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div>
+          <h1>Favoritos</h1>
+          <p class="lead">Peças salvas</p>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="toolbar">
+          <input class="search" placeholder="Buscar em favoritos" id="searchInput" />
+          <button class="btn" id="clearAll">Limpar tudo</button>
+          <button class="btn primary" id="addAllToCart">Adicionar ao carrinho</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="favoritesGrid" class="grid" aria-live="polite">
+        <!-- Cards serão injetados via JS -->
+      </section>
+
+      <div id="emptyState" style="display:none;margin-top:5px;" class="empty">
+        <p style="font-size:18px;font-weight:700;margin:0 0 8px">Nada por aqui — seus favoritos estão vazios</p>
+        <p class="muted">Salve peças enquanto navega para encontrá-las facilmente depois.</p>
+      </div>
+    </main>
+
+    <footer>
+      <span class="muted">Mostrando <span id="count">0</span> itens • Design minimalista</span>
+    </footer>
+  </div>
+
+  <script>
+    // Dados exemplo — substitua pelos dados reais do backend
+    const initialFavorites = [
+      { id: 1, title: 'Tênis da Adidas Marrom', brand: '[Milf Imports]', price: 'R$ 450,00', img: 'imagens/adidas.jpg' },
+      { id: 2, title: 'Jaqueta Louis Vuitton', brand: '[Milf Imports]', price: 'R$ 700,00', img: 'imagens/jaquetalv.jpg' },
+      { id: 3, title: 'Óculos Oakley', brand: '[Milf Imports]', price: 'R$750,00', img: 'imagens/oculos.jpg' },
+      { id: 4, title: 'Tênis Nike Preto', brand: '[Milf Imports]', price: 'R$ 700,00', img: 'imagens/tenisnike.jpg' },
+      { id: 5, title: 'Relógio Preto', brand: '[Milf Imports]', price: 'R$ 550,00', img: 'imagens/relogio2.jpg' },
+      { id: 6, title: 'Boné da Nike', brand: '[Milf Imports]', price: 'R$ 300,00', img: 'imagens/bonenike.jpg' }
+    ];
+
+    const grid = document.getElementById('favoritesGrid');
+    const emptyState = document.getElementById('emptyState');
+    const countEl = document.getElementById('count');
+    let favorites = initialFavorites.slice();
+
+    function renderCard(item) {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.dataset.id = item.id;
+
+      card.innerHTML = `
+        <div class="media">
+          ${item.img ? `<img src="${item.img}" alt="${item.title}">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#111;color:#fff;font-weight:700">${item.title}</div>`}
+          <button class="icon-btn" title="Remover" style="position:absolute;right:12px;top:12px;">&hearts;</button>
+        </div>
+        <div class="card-body">
+          <div class="title">${item.title}</div>
+          <div class="meta"><div class="muted">${item.brand}</div><div class="price">${item.price}</div></div>
+          <div class="controls">
+            <button class="btn" data-action="view">Ver</button>
+            <button class="btn" data-action="cart">Adicionar ao carrinho</button>
+            <button class="icon-btn" data-action="remove">Remover</button>
+          </div>
+        </div>
+      `;
+
+      // eventos dos botões
+      card.querySelector('[data-action="remove"]').addEventListener('click', () => removeItem(item.id));
+      card.querySelector('.media .icon-btn').addEventListener('click', () => removeItem(item.id));
+      card.querySelector('[data-action="cart"]').addEventListener('click', () => addToCart(item.id));
+      card.querySelector('[data-action="view"]').addEventListener('click', () => viewItem(item.id));
+
+      return card;
+    }
+
+    function render() {
+      grid.innerHTML = '';
+      if (favorites.length === 0) {
+        emptyState.style.display = 'block';
+      } else {
+        emptyState.style.display = 'none';
+        favorites.forEach(it => grid.appendChild(renderCard(it)));
+      }
+      countEl.textContent = favorites.length;
+    }
+
+    function removeItem(id) {
+      favorites = favorites.filter(i => i.id !== id);
+      render();
+    }
+
+    function addToCart(id) {
+      // placeholder: integre com carrinho real
+      const item = favorites.find(i => i.id === id);
+      alert('Adicionado ao carrinho: ' + (item ? item.title : 'item'));
+      // opcional: remover dos favoritos
+    }
+
+    function viewItem(id) {
+      const item = favorites.find(i => i.id === id);
+      alert(item ? item.title : 'Item não encontrado');
+    }
+
+    // toolbar
+    document.getElementById('clearAll').addEventListener('click', () => {
+      if (confirm('Remover todos os favoritos?')) { favorites = []; render(); }
+    });
+
+    document.getElementById('addAllToCart').addEventListener('click', () => {
+      if (favorites.length === 0) { alert('Nenhum item para adicionar'); return }
+      alert(`${favorites.length} itens adicionados ao carrinho (simulado)`);
+      // Em integração real: envie para o carrinho do backend
+    });
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const q = e.target.value.trim().toLowerCase();
+      if (!q) { favorites = initialFavorites.slice(); render(); return }
+      favorites = initialFavorites.filter(i => (i.title + ' ' + i.brand).toLowerCase().includes(q));
+      render();
+    });
+
+    // inicializa
+    render();
+  </script>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="conteudo-footer">
+      <div class="secao-rodape secao-marca">
+        <h2>MILF <span class="imports">IMPORTS</span></h2>
+        <p>Sua loja de streetwear com as melhores marcas e tendências. Qualidade e estilo que você merece.</p>
+        <div class="icones-sociais">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="secao-rodape">
+        <h3>Links Rápidos</h3>
+        <ul>
+          <li><a href="#">Camisetas</a></li>
+          <li><a href="#">Acessórios</a></li>
+          <li><a href="#">Relógios</a></li>
+          <li><a href="#">Óculos</a></li>
+          <li><a href="#">Bonés</a></li>
+          <li><a href="#">Tênis</a></li>
+        </ul>
+      </div>
+      <div class="secao-rodape">
+        <h3>Atendimento</h3>
+        <ul>
+          <li><a href="#">Central de Ajuda</a></li>
+          <li><a href="#">Trocas e Devoluções</a></li>
+          <li><a href="#">Rastreamento</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
+          <li><a href="#">Termos de Uso</a></li>
+        </ul>
+      </div>
+      <div class="secao-rodape">
+        <h3>Contato</h3>
+        <ul class="info-contato">
+          <li><i class="fas fa-phone"></i> (11) 99999-9999</li>
+          <li><i class="fas fa-envelope"></i> contato@milfimports.com</li>
+          <li><i class="fas fa-map-marker-alt"></i> São Paulo, SP</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape-inferior">
+      <p>© 2025 Milf Imports. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+  <!-- Fechar Footer -->
+
+</body>
+
+</html>

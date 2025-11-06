@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milf Imports - Inicio</title>
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="footer.css">
+
+  <a href="index.html">
+    <div class="sair">
+      <img src="imagens/X1.png" alt="">
+    </div>
+  </a>
+
+  <div class="popup" id="form">
+    <h2>Entrar</h2>
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Senha">
+    <button>Entrar</button>
+    <div class="switch">Não tem conta? <span onclick="trocar()">Criar conta</span></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('form');
+    let modoLogin = true;
+
+    function trocar() {
+      form.classList.remove('aparecer');
+      if (modoLogin) {
+        form.innerHTML = `
+        <h2>Criar conta</h2>
+        <input type="text" placeholder="Nome completo">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Senha">
+        <button>Criar conta</button>
+        <div class="switch">Já tem conta? <span onclick="trocar()">Entrar</span></div>
+      `;
+      } else {
+        form.innerHTML = `
+        <h2>Entrar</h2>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Senha">
+        <button>Entrar</button>
+        <div class="switch">Não tem conta? <span onclick="trocar()">Criar conta</span></div>
+      `;
+      }
+      modoLogin = !modoLogin;
+    }
+  </script>
+  </style>
+  </body>
+
+</html>
